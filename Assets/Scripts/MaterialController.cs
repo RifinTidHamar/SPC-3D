@@ -58,7 +58,7 @@ public class MaterialController : MonoBehaviour
             //the two points: one in 1st sub coordinate, and one in the second
             GameObject point1 = Instantiate(prefabPointFirstSubCoord, firstSubCoord.transform);
             GameObject point2 = Instantiate(prefabPointSecondSubCoord, secondSubCoord.transform);
-            GameObject vector = Instantiate(prefabVector);
+            //GameObject vector = Instantiate(prefabVector);
 
             //setting the two points up
             point1.transform.localPosition = new Vector3(0, 0, 0);
