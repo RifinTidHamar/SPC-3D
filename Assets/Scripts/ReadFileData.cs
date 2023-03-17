@@ -6,8 +6,18 @@ using System.IO;
 
 public class ReadFileData : MonoBehaviour
 {
-    public float[] xVals;
+
+    //the plan: have the program look at every string. If it is new, then make it a new value starting at 0 and going up by 1.
+    //for the array below, the first attribute represents the class, the second the row, and the third the value 
+    //public float[] xVals;
     string myFilePath, fileName;
+    //make an array for the max number of each attribute
+    //make a number for the number of classes
+    //make a number for the number of rows
+    //static public float[,,] setosa;
+    //static public float[,,] versicolor;
+    //static public float[,,] virginica;
+
     static public float[,] setosa;
     static public float[,] versicolor;
     static public float[,] virginica;

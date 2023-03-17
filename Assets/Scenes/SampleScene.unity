@@ -3913,10 +3913,10 @@ MonoBehaviour:
   prefabPointFirstSubCoord: {fileID: 6514902219626556243, guid: 1c63733f549431543b9284d6bf90bd69, type: 3}
   prefabPointSecondSubCoord: {fileID: 5369076859955457302, guid: 8e7f858f2d38c054c85f22607219fec4, type: 3}
   prefabVector: {fileID: 188494252798842215, guid: 675720cb343bc0e47aaf068f11ab872e, type: 3}
-  firstSubCoord: {fileID: 1516080250}
-  secondSubCoord: {fileID: 152124323}
-  rulePlaneC1: {fileID: 2100000, guid: 6da53347cd750e04c86086f8c8a13e0b, type: 2}
-  rulePlaneC2: {fileID: 2100000, guid: e220000759dfc0949ab33dc81ffd2323, type: 2}
+  firstSubCoord: {fileID: 152124323}
+  secondSubCoord: {fileID: 1516080250}
+  rulePlaneC1: {fileID: 2100000, guid: e220000759dfc0949ab33dc81ffd2323, type: 2}
+  rulePlaneC2: {fileID: 2100000, guid: 6da53347cd750e04c86086f8c8a13e0b, type: 2}
   HeightPlanes:
   - {fileID: 2100000, guid: 23ace1cb9bdc45842b4b1493fa93407f, type: 2}
   - {fileID: 2100000, guid: 6a54ea3e77f30e54d8278830d9f2d8fc, type: 2}
@@ -5539,7 +5539,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 15, y: 0}
+  m_AnchoredPosition: {x: 988, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &752519395
@@ -9576,7 +9576,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 988, y: 0}
+  m_AnchoredPosition: {x: 15, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1578350739
@@ -10204,6 +10204,7 @@ GameObject:
   - component: {fileID: 1687258582}
   - component: {fileID: 1687258586}
   - component: {fileID: 1687258583}
+  - component: {fileID: 1687258587}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -10334,6 +10335,19 @@ MonoBehaviour:
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
+--- !u!114 &1687258587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1687258581}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a341633dde1200b4dbd07a8bb1804061, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cam: {fileID: 1687258584}
 --- !u!1 &1718200922
 GameObject:
   m_ObjectHideFlags: 0

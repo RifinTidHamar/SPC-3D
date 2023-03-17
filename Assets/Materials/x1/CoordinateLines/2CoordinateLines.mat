@@ -13,7 +13,7 @@ Material:
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: -1
+  m_CustomRenderQueue: 3000
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -101,10 +101,11 @@ Material:
     - _SpecularHighlights: 1
     - _SrcBlend: 1
     - _Surface: 0
-    - _Transparency: 1
+    - _Transparency: 0.002
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - _AttribContrib: {r: 1, g: 1, b: 1, a: 1}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _C: {r: -2.5, g: -2.826596, b: 0, a: 0}
     - _Color: {r: 1, g: 1, b: 1, a: 1}

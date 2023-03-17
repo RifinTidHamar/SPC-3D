@@ -8,6 +8,7 @@ Shader "Custom/coordinateLines"
 		_Pos1("Pos1", Vector) = (0,0,0,0)
 		_Pos2("Pos2", Vector) = (1,1,0,0)
 		_Pos3("Pos3", Vector) = (1,1,1,0)
+		_AttribContrib("attribute contribution", Vector) = (1,1,1,1)
 		_C("C", Vector) = (1,1,1,1)
 		_Transparency("Transparency", Range(0, 1)) = 0.5
 	}
@@ -35,6 +36,7 @@ Shader "Custom/coordinateLines"
 			float4 _Pos1;
 			float4 _Pos2;
 			float4 _Pos3;
+			float4 _AttribContrib;
 			float4 _C;
 			static float3 fadedCol = 0.2;
 			bool faded;
@@ -70,7 +72,7 @@ Shader "Custom/coordinateLines"
 				o[0].vertex = UnityObjectToClipPos(_Pos0);
 				o[0].color = faded ? fadedCol : float3(1, 0.2, 0.2);
 				vert.Append(o[0]);
-				o[1].vertex = UnityObjectToClipPos(_Pos1);
+				o[1].vertex = UnityObjectToClipPos(_Pos2);
 				o[1].color = faded ? fadedCol : float3(0.6, 0, 0);
 				vert.Append(o[1]);
 				vert.RestartStrip();
@@ -118,19 +120,29 @@ Shader "Custom/coordinateLines"
 					o[4].vertex = UnityObjectToClipPos(_Pos2);
 					o[4].color = faded ? fadedCol : float3(0.7, 0.7, 1);
 					vert.Append(o[4]);
-					o[5].vertex = UnityObjectToClipPos(float4(_Pos3.xy, _C.z, _Pos3.w));
+					o[5].vertex = UnityObjectToClipPos(float4(_Pos3.xy, _Pos3.z, _Pos3.w));
 					o[5].color = faded ? fadedCol : float3(0.2, 0.2, 0.4);
 					vert.Append(o[5]);
 					vert.RestartStrip();
-
-					o[6].vertex = UnityObjectToClipPos(float4(_Pos3.xy, _C.z, _Pos3.w));
-					o[6].color = faded ? fadedCol : float3(0.5, 0.5, 0);
-					vert.Append(o[6]);
-					o[7].vertex = UnityObjectToClipPos(_Pos3);
-					o[7].color = faded ? fadedCol : float3(0.5, 0.5, 0);
-					vert.Append(o[7]);
-					vert.RestartStrip();
 				}
+				//else if (_C.z < _Pos3.z)
+				//{
+				//	o[4].vertex = UnityObjectToClipPos(_Pos2);
+				//	o[4].color = faded ? fadedCol : float3(0.7, 0.7, 1);
+				//	vert.Append(o[4]);
+				//	o[5].vertex = UnityObjectToClipPos(float4(_Pos3.xy, _C.z, _Pos3.w));
+				//	o[5].color = faded ? fadedCol : float3(0.2, 0.2, 0.4);
+				//	vert.Append(o[5]);
+				//	vert.RestartStrip();
+
+				//	o[6].vertex = UnityObjectToClipPos(float4(_Pos3.xy, _C.z, _Pos3.w));
+				//	o[6].color = faded ? fadedCol : float3(0.5, 0.5, 0);
+				//	vert.Append(o[6]);
+				//	o[7].vertex = UnityObjectToClipPos(_Pos3);
+				//	o[7].color = faded ? fadedCol : float3(0.5, 0.5, 0);
+				//	vert.Append(o[7]);
+				//	vert.RestartStrip();
+				//}
 			}
 
 			fixed4 frag(g2f i) : SV_Target
