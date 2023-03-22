@@ -16,8 +16,8 @@ Shader "Custom/vector"
 		Pass
 		{
 			//Ztest Always
-			Tags {"Queue" = "Transparent"}
-			Blend SrcColor OneMinusDstAlpha
+			Tags {"Queue" = "Geometry"}
+			Blend off
 			LOD 100
 
 			HLSLPROGRAM
@@ -67,7 +67,7 @@ Shader "Custom/vector"
 			{
 				fixed4 col;
 				col.rgb = _Color.rgb;
-				col.a = _Transparency;
+				col.a = 1;
 				return col;
 			}
 			ENDHLSL

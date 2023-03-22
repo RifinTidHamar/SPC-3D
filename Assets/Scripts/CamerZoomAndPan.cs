@@ -9,7 +9,6 @@ public class CamerZoomAndPan : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(cam.transform.rotation);
         if (cam.orthographicSize >= 0.1f && cam.orthographicSize <= 100)
             cam.orthographicSize -= Input.mouseScrollDelta.y * 0.5f;
         else if (cam.orthographicSize <= 0.1f)

@@ -534,7 +534,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 0.0
+  m_Text: 1.0
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -647,7 +647,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 1.0
 --- !u!222 &70997090
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -854,7 +854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 123492165}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.32, z: -2.51}
+  m_LocalPosition: {x: 0, y: -0.335, z: -2.505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1516080251}
@@ -1530,7 +1530,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 185724598}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: -0.32, z: -2.51}
+  m_LocalPosition: {x: 0, y: -0.335, z: -2.505}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 152124324}
@@ -2259,7 +2259,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Enter text...
+  m_Text: 1.0
 --- !u!222 &318056161
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3920,8 +3920,6 @@ MonoBehaviour:
   HeightPlanes:
   - {fileID: 2100000, guid: 23ace1cb9bdc45842b4b1493fa93407f, type: 2}
   - {fileID: 2100000, guid: 6a54ea3e77f30e54d8278830d9f2d8fc, type: 2}
-  xVal: 6
-  yVal: 4.5
 --- !u!4 &529315416
 Transform:
   m_ObjectHideFlags: 0
@@ -3948,7 +3946,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f05afa87fc1ba54ebbe325da65f685b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  xVals: []
 --- !u!1 &541653331
 GameObject:
   m_ObjectHideFlags: 0
@@ -4142,7 +4139,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 0.0
+  m_Text: 1.0
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -4255,7 +4252,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 1.0
 --- !u!222 &563034921
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5339,7 +5336,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 1.0
 --- !u!222 &693248907
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7439,7 +7436,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 1.0
 --- !u!222 &1171779671
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7518,7 +7515,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 1.0
 --- !u!222 &1183902357
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7921,7 +7918,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 0.0
+  m_Text: 1.0
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0
@@ -8404,7 +8401,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 1.0
 --- !u!222 &1446865923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -8952,7 +8949,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 0.0
+  m_Text: 1.0
 --- !u!222 &1472075686
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9229,7 +9226,7 @@ MonoBehaviour:
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}
-  m_Text: 0.0
+  m_Text: 1.0
   m_CaretBlinkRate: 0.85
   m_CaretWidth: 1
   m_ReadOnly: 0

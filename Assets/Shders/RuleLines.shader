@@ -15,7 +15,7 @@ Shader "Unlit/RuleLines"
 
 		Pass
 		{
-			//Ztest Always
+			Ztest Always
 			Tags {"LightMode" = "UniversalForward"}
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100
@@ -68,20 +68,20 @@ Shader "Unlit/RuleLines"
 				float lowY = scale * (_BY - 0.5);
 
 				g2f o[5];
-				o[0].vertex = UnityObjectToClipPos(float3(highX, 0.01, highY));
+				o[0].vertex = UnityObjectToClipPos(float3(highX, 0.00, highY));
 				o[0].color = _Color;// +0.5;
 				vert.Append(o[0]);
-				o[1].vertex = UnityObjectToClipPos(float3(lowX, 0.01, highY));
+				o[1].vertex = UnityObjectToClipPos(float3(lowX, 0.00, highY));
 				o[1].color = _Color;// -0.5;
 				vert.Append(o[1]);
-				o[2].vertex = UnityObjectToClipPos(float3(lowX, 0.01, lowY));
+				o[2].vertex = UnityObjectToClipPos(float3(lowX, 0.00, lowY));
 				o[2].color = _Color;// -0.8;
 				vert.Append(o[2]);
-				o[3].vertex = UnityObjectToClipPos(float3(highX, 0.01, lowY));
+				o[3].vertex = UnityObjectToClipPos(float3(highX, 0.00, lowY));
 				o[3].color = _Color;// -0.5;
 				vert.Append(o[3]);
 				//makes a full connected square
-				o[4].vertex = UnityObjectToClipPos(float3(highX, 0.01, highY));
+				o[4].vertex = UnityObjectToClipPos(float3(highX, 0.00, highY));
 				o[4].color = _Color;// +0.5;
 				vert.Append(o[4]);
 				vert.RestartStrip();
