@@ -22,12 +22,14 @@ public class MaterialController : MonoBehaviour
     GameObject[] coordPointArr;// = new GameObject[100];
     GameObject[] attribContribPointArr;
     //public Material pointMat;
-    GameObject[] coordPlaneArr;// = new GameObject[100];
+    GameObject[] classLinePlanes;// = new GameObject[100];
+    GameObject[] glclLinePlanes;
     GameObject[] vectorArr;
     //public Text[] restOfFuncTexts;
     public Material[] HeightPlanes;
     //public Text fX;
 
+    private Vector3 localOffset = new Vector3(2.5f, 2.836596f, 2.5f);
     private Color[] classColors = { new Color(255, 0, 0, 255), new Color(0, 255, 0, 255), new Color(0, 0, 255, 255)};
     private Color class2 = new Color(255, 0, 186, 255);
     private Color class1 = new Color(255, 255, 0, 255);
@@ -57,7 +59,8 @@ public class MaterialController : MonoBehaviour
 
         //Debug.Log(xVals.GetLength(0));
         coordPointArr = new GameObject[setCount * 2];// multiplied by two because it there are two subcoordinates for every 4 values (which makes up one xVal)
-        coordPlaneArr = new GameObject[setCount * 2];
+        classLinePlanes = new GameObject[setCount * 2];
+        glclLinePlanes = new GameObject[setCount * 2];
         attribContribPointArr = new GameObject[setCount * 2];
         vectorArr = new GameObject[setCount];
         for (int i = 0; i < setCount; i++)
@@ -76,18 +79,33 @@ public class MaterialController : MonoBehaviour
             attribContribPointArr[i * 2] = point1.transform.GetChild(2).gameObject;
             attribContribPointArr[i * 2 + 1] = point2.transform.GetChild(2).gameObject;
 
+            //setting the two classLinePlanes up
             Renderer renderer = point1.transform.GetChild(0).gameObject.GetComponent<Renderer>();
             renderer.material = new Material(Shader.Find("Custom/coordinateLines"));
             renderer.material.renderQueue = 3000;
             renderer.material.SetFloat("_Transparency", 0.002f);
 
-            //setting the two coordinate lines up
             renderer = point2.transform.GetChild(0).gameObject.GetComponent<Renderer>();
             renderer.material = new Material(Shader.Find("Custom/coordinateLines"));
             renderer.material.renderQueue = 3000;
             renderer.material.SetFloat("_Transparency", 0.002f);
-            coordPlaneArr[i * 2] = point1.transform.GetChild(0).gameObject;
-            coordPlaneArr[i * 2 + 1] = point2.transform.GetChild(0).gameObject;
+
+            classLinePlanes[i * 2] = point1.transform.GetChild(0).gameObject;
+            classLinePlanes[i * 2 + 1] = point2.transform.GetChild(0).gameObject;
+
+            //setting the two glclLinePlanes up
+            renderer = point1.transform.GetChild(3).gameObject.GetComponent<Renderer>();
+            renderer.material = new Material(Shader.Find("Unlit/GLCL"));
+            renderer.material.renderQueue = 3000;
+            renderer.material.SetFloat("_Transparency", 0.002f);
+
+            renderer = point2.transform.GetChild(3).gameObject.GetComponent<Renderer>();
+            renderer.material = new Material(Shader.Find("Unlit/GLCL"));
+            renderer.material.renderQueue = 3000;
+            renderer.material.SetFloat("_Transparency", 0.002f);
+
+            glclLinePlanes[i * 2] = point1.transform.GetChild(3).gameObject;
+            glclLinePlanes[i * 2 + 1] = point2.transform.GetChild(3).gameObject;
 
             //setting the vector between two points up
             renderer = vector.gameObject.GetComponent<Renderer>();
@@ -111,12 +129,19 @@ public class MaterialController : MonoBehaviour
         rulePlaneC2.SetFloat("_BY", ruleC2[3]);
 
         setHeightPlaneCorners();
-        int pointIndex = 0;
         normPerAttribData = normalize(data);
+
+        classLines();
+    }
+
+    void classLines()
+    {
+        int pointIndex = 0;
+        //for each class
         for (int i = 0; i < data.Length; i++)
         {
             Color classColor = classColors[i];
-            int x = data[i].Length;
+            //for each set
             for (int j = 0; j < data[i].Length; j++)
             {
                 int fxiIndex = ReadFileData.classCount * j + i;
@@ -126,12 +151,46 @@ public class MaterialController : MonoBehaviour
                 Material vec = vectorArr[fxiIndex].GetComponent<Renderer>().material;
                 bool skipNextMat = false;
                 bool outsideRules = false;
-                //points
+                //for each sub-coordinate
                 for (int k = 0; k < NUM_PAIR_COORD; k++)
                 {
                     coordPointArr[pointIndex].transform.localPosition = new Vector3((float)normPerAttribData[i][j][k * 2] * X_SCALE - xShift, (float)normPerAttribData[i][j][k * 2 + 1] * Y_SCALE - yShift, (float)(fxi[fxiIndex] * VALUE_TO_CUBE_FRAC_SCALE) - zShift);
                     attribContribPointArr[pointIndex].transform.localPosition = new Vector3((float)normPerAttribData[i][j][k * 2] * X_SCALE - xShift, (float)normPerAttribData[i][j][k * 2 + 1] * Y_SCALE - yShift, (float)(fxiParts[fxiIndex][k] * VALUE_TO_CUBE_FRAC_SCALE) - zShift);
                     Vector3 currentCoord = coordPointArr[pointIndex].transform.localPosition;
+                    //========================================================//
+
+                    Vector3 curCoordXY = new Vector3(currentCoord.x, currentCoord.y, 0);
+                    Material glclLines = glclLinePlanes[pointIndex].GetComponent<Renderer>().material;
+
+                    Vector3 startP = new Vector3(0, 0, 0 - zShift);
+                    glclLines.SetVector("_Pos0", startP + curCoordXY);
+                    //float distAway = (normPerAttribData[i][j][0] * Y_SCALE - yShift) * 0.2f;
+                    //Vector3 endP = new Vector3(0, distAway, 0);
+                    //float radiansOff = Mathf.Acos(normPerAttribData[i][j][0] / aVals[0]);
+                    float height = (float)(aVals[0] * data[i][j][0] * VALUE_TO_CUBE_FRAC_SCALE);
+                    float topRAngle = normPerAttribData[i][j][0] / aVals[0];
+                    float bottomLength = aVals[0] * Mathf.Tan(topRAngle);
+
+                    //float x = endP.x * Mathf.Cos(radiansOff) - endP.y * Mathf.Sin(radiansOff);
+                    //float y = endP.x * Mathf.Sin(radiansOff) + endP.y * Mathf.Cos(radiansOff);
+                    Vector3 endP = new Vector3(bottomLength, 0, startP.z + height);
+                    glclLines.SetVector("_Pos1", endP + curCoordXY);
+
+                    //radiansOff = Mathf.Acos(normPerAttribData[i][j][1] / aVals[1]);
+                    //height = (float)(aVals[1] * data[i][j][1] * VALUE_TO_CUBE_FRAC_SCALE);
+                    //distAway = (normPerAttribData[i][j][1] * Y_SCALE - yShift) * 0.2f;
+                    //endP = setGLCLPoint("_Pos2", endP, radiansOff, glclLines, height, distAway, curCoordXY);
+
+                    //radiansOff = Mathf.Acos(normPerAttribData[i][j][2] / aVals[2]);
+                    //height = (float)(aVals[2] * data[i][j][2] * VALUE_TO_CUBE_FRAC_SCALE);
+                    //distAway = (normPerAttribData[i][j][2] * Y_SCALE - yShift) * 0.2f;
+                    //endP = setGLCLPoint("_Pos3", endP, radiansOff, glclLines, height, distAway, curCoordXY);
+
+                    //radiansOff = Mathf.Acos(normPerAttribData[i][j][3] / aVals[3]);
+                    //height = (float)(aVals[3] * data[i][j][3] * VALUE_TO_CUBE_FRAC_SCALE);
+                    //distAway = (normPerAttribData[i][j][3] * Y_SCALE - yShift) * 0.2f;
+                    //endP = setGLCLPoint("_Pos4", endP, radiansOff, glclLines, height, distAway, curCoordXY);
+                    //=========================================================//
 
                     int otherPointIndex;
                     if (k % 2 == 0)
@@ -150,8 +209,9 @@ public class MaterialController : MonoBehaviour
                     Material otherPoint = coordPointArr[pointIndex + otherPointIndex].GetComponent<Renderer>().material;
                     Material attribPoint = attribContribPointArr[pointIndex].GetComponent<Renderer>().material;
                     Material otherAttribPoint = attribContribPointArr[pointIndex + otherPointIndex].GetComponent<Renderer>().material;
-                    Material coordLines = coordPlaneArr[pointIndex].GetComponent<Renderer>().material;
-                    Material otherCoordLine = coordPlaneArr[pointIndex + otherPointIndex].GetComponent<Renderer>().material;
+                    Material coordLines = classLinePlanes[pointIndex].GetComponent<Renderer>().material;
+                    Material otherCoordLine = classLinePlanes[pointIndex + otherPointIndex].GetComponent<Renderer>().material;
+                    Material otherGlclLine = glclLinePlanes[pointIndex + otherPointIndex].GetComponent<Renderer>().material;
                     setCoordPlane(coordLines, currentCoord, (float)(c * high_fx) * VALUE_TO_CUBE_FRAC_SCALE - 2.5f);
                     bool ruleCoordOne = (ruleC1[0] >= (float)normPerAttribData[i][j][k * 2] && (float)normPerAttribData[i][j][k * 2] >= ruleC1[1] &&
                             ruleC1[2] >= (float)normPerAttribData[i][j][k * 2 + 1] && (float)normPerAttribData[i][j][k * 2 + 1] >= ruleC1[3]) && k % 2 == 1;
@@ -162,7 +222,13 @@ public class MaterialController : MonoBehaviour
                         if (ruleCoordOne || ruleCoordTwo)
                         {
                             attribPoint.SetColor("_Color", new Color(0.7f, 0.7f, 1));
-                            coordLines.SetInt("faded", 0);
+                            coordLines.SetFloat("_Transparency", 0.002f);
+                            glclLines.SetFloat("_Transparency", 1);
+                            otherGlclLine.SetFloat("_Transparency", 1);
+                            point.SetFloat("_Trans", 1);
+                            otherPoint.SetFloat("_Trans", 1);
+                            attribPoint.SetFloat("_Trans", 1);
+                            otherAttribPoint.SetFloat("_Trans", 1);
                             if (fxi[j] <= (c * high_fx))
                             {
                                 point.SetColor("_Color", classColor);//class 2
@@ -181,12 +247,14 @@ public class MaterialController : MonoBehaviour
                         }
                         else
                         {
-                            coordLines.SetInt("faded", 1);
-                            otherCoordLine.SetInt("faded", 1);
-                            point.SetColor("_Color", grey);
-                            otherPoint.SetColor("_Color", grey);
-                            attribPoint.SetColor("_Color", grey);
-                            otherAttribPoint.SetColor("_Color", grey);
+                            glclLines.SetFloat("_Transparency", 0f);
+                            otherGlclLine.SetFloat("_Transparency", 0f);
+                            coordLines.SetFloat("_Transparency", 0);
+                            otherCoordLine.SetFloat("_Transparency", 0);
+                            point.SetFloat("_Trans", 0);
+                            otherPoint.SetFloat("_Trans", 0);
+                            attribPoint.SetFloat("_Trans", 0);
+                            otherAttribPoint.SetFloat("_Trans", 0);
                             for (int p = 0; p < connectedPoints.Length; p++)
                             {
                                 connectedPoints[p].transform.localScale = new Vector3(0.01f, 0.01f, 0.01f);
@@ -206,17 +274,22 @@ public class MaterialController : MonoBehaviour
                 {
                     vectorArr[fxiIndex].GetComponent<Renderer>().enabled = true;
                 }
-                //n += 2 * ReadFileData.classCount;
-                //draws the connecting line for points
-                //vector[0].SetVector("_Pos1", coordPoint[0].transform.position);
-                //vector[0].SetVector("_Pos2", coordPoint[1].transform.position);
-                //v
-                //ector[0].SetVector("_Pos3", coordPoint[2].transform.position);
             }
         }
     }
+
     //calcultes f(x) based off "A" vector and "X" vector
     //will have to create dynamic "a" index. 
+    
+    Vector3 setGLCLPoint(string pos, Vector3 endP, float radiansOff, Material glclLines, float height, float distAway, Vector3 curCoord)
+    {
+        endP = new Vector3(endP.x, endP.y + distAway, endP.z);
+        float x = endP.x * Mathf.Cos(radiansOff) - endP.y * Mathf.Sin(radiansOff);
+        float y = endP.x * Mathf.Sin(radiansOff) + endP.y * Mathf.Cos(radiansOff);
+        endP = new Vector3(x, y, endP.z + height);
+        glclLines.SetVector(pos, endP + curCoord);
+        return endP;
+    }
     float setFX(float[] a, float[][][] x, int c, int set)
     {
         float f_x = a[0] * x[c][set][0] + a[1] * x[c][set][1] + a[2] * x[c][set][2] + a[3] * x[c][set][3];
@@ -298,7 +371,6 @@ public class MaterialController : MonoBehaviour
                 }
             }
         }
-        
         return normArr;
     }
    

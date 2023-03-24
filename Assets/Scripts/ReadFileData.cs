@@ -105,20 +105,5 @@ public class ReadFileData : MonoBehaviour
         //        virginica = seperateIntoIrisArrays(numberString, virginica, i, versiCount + setosaCount, "virginica");
         //    }
         //}
-        int x = 0;
-    }
-    float[,] seperateIntoIrisArrays(string[][] unsep, float[,] irisType, int i, int cnt, string name)
-    {
-        for (int j = 0; j < unsep[i].Length; j++)
-        {
-            if (!unsep[i][j].Contains("-"))
-            {
-                irisType[i - cnt, j] = float.Parse(unsep[i][j]);
-            }
-            else
-            {
-            }
-        }
-        return irisType;
     }
 }
