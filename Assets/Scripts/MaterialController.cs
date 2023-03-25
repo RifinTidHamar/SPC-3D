@@ -158,38 +158,29 @@ public class MaterialController : MonoBehaviour
                     attribContribPointArr[pointIndex].transform.localPosition = new Vector3((float)normPerAttribData[i][j][k * 2] * X_SCALE - xShift, (float)normPerAttribData[i][j][k * 2 + 1] * Y_SCALE - yShift, (float)(fxiParts[fxiIndex][k] * VALUE_TO_CUBE_FRAC_SCALE) - zShift);
                     Vector3 currentCoord = coordPointArr[pointIndex].transform.localPosition;
                     //========================================================//
-
                     Vector3 curCoordXY = new Vector3(currentCoord.x, currentCoord.y, 0);
                     Material glclLines = glclLinePlanes[pointIndex].GetComponent<Renderer>().material;
 
-                    Vector3 startP = new Vector3(0, 0, 0 - zShift);
-                    glclLines.SetVector("_Pos0", startP + curCoordXY);
-                    //float distAway = (normPerAttribData[i][j][0] * Y_SCALE - yShift) * 0.2f;
-                    //Vector3 endP = new Vector3(0, distAway, 0);
-                    //float radiansOff = Mathf.Acos(normPerAttribData[i][j][0] / aVals[0]);
-                    float height = (float)(aVals[0] * data[i][j][0] * VALUE_TO_CUBE_FRAC_SCALE);
-                    float topRAngle = normPerAttribData[i][j][0] / aVals[0];
-                    float bottomLength = aVals[0] * Mathf.Tan(topRAngle);
+                    Vector3 endP = new Vector3(0, 0, 0 - zShift) + curCoordXY;
+                    glclLines.SetVector("_Pos0", endP);
+                    if(k == 0)
+                    {
+                        endP = setGLCLPoint("_Pos1", endP, glclLines, data[i][j][0], normPerAttribData[i][j][0], aVals[0]);
+                        endP = setGLCLPoint("_Pos2", endP, glclLines, data[i][j][1], normPerAttribData[i][j][1], aVals[1]);
+                        endP = setGLCLPoint("_Pos3", endP, glclLines, data[i][j][2], normPerAttribData[i][j][2], aVals[2]);
+                               setGLCLPoint("_Pos4", endP, glclLines, data[i][j][3], normPerAttribData[i][j][3], aVals[3]);
+                        glclLines.SetVector("_Point", currentCoord);
 
-                    //float x = endP.x * Mathf.Cos(radiansOff) - endP.y * Mathf.Sin(radiansOff);
-                    //float y = endP.x * Mathf.Sin(radiansOff) + endP.y * Mathf.Cos(radiansOff);
-                    Vector3 endP = new Vector3(bottomLength, 0, startP.z + height);
-                    glclLines.SetVector("_Pos1", endP + curCoordXY);
+                    }
+                    else
+                    {
+                        endP = setGLCLPoint("_Pos1", endP, glclLines, data[i][j][3], normPerAttribData[i][j][3], aVals[3]);
+                        endP = setGLCLPoint("_Pos2", endP, glclLines, data[i][j][2], normPerAttribData[i][j][2], aVals[2]);
+                        endP = setGLCLPoint("_Pos3", endP, glclLines, data[i][j][1], normPerAttribData[i][j][1], aVals[1]);
+                               setGLCLPoint("_Pos4", endP, glclLines, data[i][j][0], normPerAttribData[i][j][0], aVals[0]);
+                        glclLines.SetVector("_Point", currentCoord);
+                    }
 
-                    //radiansOff = Mathf.Acos(normPerAttribData[i][j][1] / aVals[1]);
-                    //height = (float)(aVals[1] * data[i][j][1] * VALUE_TO_CUBE_FRAC_SCALE);
-                    //distAway = (normPerAttribData[i][j][1] * Y_SCALE - yShift) * 0.2f;
-                    //endP = setGLCLPoint("_Pos2", endP, radiansOff, glclLines, height, distAway, curCoordXY);
-
-                    //radiansOff = Mathf.Acos(normPerAttribData[i][j][2] / aVals[2]);
-                    //height = (float)(aVals[2] * data[i][j][2] * VALUE_TO_CUBE_FRAC_SCALE);
-                    //distAway = (normPerAttribData[i][j][2] * Y_SCALE - yShift) * 0.2f;
-                    //endP = setGLCLPoint("_Pos3", endP, radiansOff, glclLines, height, distAway, curCoordXY);
-
-                    //radiansOff = Mathf.Acos(normPerAttribData[i][j][3] / aVals[3]);
-                    //height = (float)(aVals[3] * data[i][j][3] * VALUE_TO_CUBE_FRAC_SCALE);
-                    //distAway = (normPerAttribData[i][j][3] * Y_SCALE - yShift) * 0.2f;
-                    //endP = setGLCLPoint("_Pos4", endP, radiansOff, glclLines, height, distAway, curCoordXY);
                     //=========================================================//
 
                     int otherPointIndex;
@@ -221,6 +212,7 @@ public class MaterialController : MonoBehaviour
                     {
                         if (ruleCoordOne || ruleCoordTwo)
                         {
+
                             attribPoint.SetColor("_Color", new Color(0.7f, 0.7f, 1));
                             coordLines.SetFloat("_Transparency", 0.002f);
                             glclLines.SetFloat("_Transparency", 1);
@@ -272,7 +264,7 @@ public class MaterialController : MonoBehaviour
                 }
                 else
                 {
-                    vectorArr[fxiIndex].GetComponent<Renderer>().enabled = true;
+                    vectorArr[fxiIndex].GetComponent<Renderer>().enabled = false; //true
                 }
             }
         }
@@ -281,13 +273,14 @@ public class MaterialController : MonoBehaviour
     //calcultes f(x) based off "A" vector and "X" vector
     //will have to create dynamic "a" index. 
     
-    Vector3 setGLCLPoint(string pos, Vector3 endP, float radiansOff, Material glclLines, float height, float distAway, Vector3 curCoord)
+    Vector3 setGLCLPoint(string pos, Vector3 endP, Material glclLines, float data, float normData, float aval)
     {
-        endP = new Vector3(endP.x, endP.y + distAway, endP.z);
-        float x = endP.x * Mathf.Cos(radiansOff) - endP.y * Mathf.Sin(radiansOff);
-        float y = endP.x * Mathf.Sin(radiansOff) + endP.y * Mathf.Cos(radiansOff);
-        endP = new Vector3(x, y, endP.z + height);
-        glclLines.SetVector(pos, endP + curCoord);
+        float height = (float)(aval * data * VALUE_TO_CUBE_FRAC_SCALE);
+        float topRAngle = normData / 1;
+        float bottomLength = 1 * Mathf.Tan(topRAngle);
+        endP += new Vector3(bottomLength, 0, height);
+        glclLines.SetVector(pos, endP);
+
         return endP;
     }
     float setFX(float[] a, float[][][] x, int c, int set)
