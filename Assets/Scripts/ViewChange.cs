@@ -6,6 +6,7 @@ using UnityEngine.UI;
 
 public class ViewChange : MonoBehaviour
 {
+    public bool interactable = true;
     public GameObject[] fx;
     public GameObject[] x;
     public GameObject[] y;
@@ -78,6 +79,7 @@ public class ViewChange : MonoBehaviour
         foreach(Button i in views)
         {
             i.interactable = false;
+            interactable = false;
         }
         while (Camera.main.transform.position != newPos && Camera.main.transform.rotation != newRot)
         {
@@ -88,6 +90,7 @@ public class ViewChange : MonoBehaviour
         foreach (Button i in views)
         {
             i.interactable = true;
+            interactable = true;
         }
     }
 }

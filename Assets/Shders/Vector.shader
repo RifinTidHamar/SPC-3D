@@ -17,8 +17,7 @@ Shader "Custom/vector"
 		{
 			//Ztest Always
 			Tags {"Queue" = "Geometry"}
-			Blend off
-			LOD 100
+			Blend SrcAlpha OneMinusSrcAlpha
 
 			HLSLPROGRAM
 			#pragma vertex vert

@@ -44,7 +44,7 @@ public class ReadFileData : MonoBehaviour
         string[] rows = File.ReadAllLines(myFilePath);
         int dataColumns = rows[0].Split(',').Length;
         attribCount = dataColumns - 1; // "-1" to account for the class column, which is not an attribute
-        setCount = rows.Length - 1;
+        setCount = rows.Length - 1;//TEMP
         string[][] numberString = new string[setCount][];
         maxAttribNums = new float[attribCount];
         List<string> classNames = new List<string>();

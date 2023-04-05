@@ -18,7 +18,7 @@ Shader "Custom/coordinateLines"
 
 		Pass
 		{
-			Ztest Always
+			//Ztest Always
 			Tags {"LightMode" = "UniversalForward"}
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100

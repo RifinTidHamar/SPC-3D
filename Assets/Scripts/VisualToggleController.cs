@@ -5,36 +5,26 @@ using UnityEngine;
 //Takes in toggles to hide or show given visuals
 public class VisualToggleController : MonoBehaviour
 {
-    public GameObject[] heightPlanes;
+    public GameObject[] GLCLLines;
     public GameObject[] vector;
     public GameObject[] coordPlanes;
-    public GameObject vectorPlaneToggleHelp;
-    public GameObject[] pointsBelowPlane;
+    public GameObject[] attribContrib;
 
-    private bool heightToggle = true;
+    private bool GLCLToggle = true;
     private bool vectorToggle = true;
     private bool coordToggle = true;
-    private bool belowPointToggle = true;
+    private bool attribContribToggle = true;
 
-    //points below height planes
-    public void setBelowPoint()
+    //attribContribPointsBeneathEachPlane
+    public void setAttribContrib()
     {
-        belowPointToggle = !belowPointToggle;
-        vectorPlaneToggleHelp.SetActive(belowPointToggle);
-        for(int i = 0; i < pointsBelowPlane.Length; i++)
+        attribContribToggle = !attribContribToggle;
+        for(int i = 0; i < attribContrib.Length; i++)
         {
-            pointsBelowPlane[i].SetActive(belowPointToggle);
+            attribContrib[i].SetActive(attribContribToggle);
         }
     }
-    //yellow height planes
-    public void setHeightPlanes()
-    {
-        heightToggle = !heightToggle;
-        for(int i = 0; i < heightPlanes.Length; i++)
-        {
-            heightPlanes[i].gameObject.SetActive(heightToggle);
-        }
-    }
+
     //connecting line between subcoordinate points
     public void setVector()
     {
@@ -50,7 +40,17 @@ public class VisualToggleController : MonoBehaviour
         coordToggle = !coordToggle;
         for(int i = 0; i < coordPlanes.Length; i++)
         {
-            coordPlanes[i].gameObject.SetActive(coordToggle);
+            coordPlanes[i].SetActive(coordToggle);
+        }
+    }
+
+    //GLCL points
+    public void setGLCL()
+    {
+        GLCLToggle = !GLCLToggle;
+        for (int i = 0; i < GLCLLines.Length; i++)
+        {
+            GLCLLines[i].SetActive(GLCLToggle);
         }
     }
 }

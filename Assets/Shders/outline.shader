@@ -14,7 +14,7 @@ Shader "Unlit/outline"
 		{
 			//Ztest Always
 			Tags {"LightMode" = "UniversalForward"}
-			Blend SrcAlpha OneMinusSrcAlpha
+			//Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100
 
 			HLSLPROGRAM
@@ -66,7 +66,7 @@ Shader "Unlit/outline"
 			{
 				fixed4 col;
 				col.rgb = _Color.rgb;
-				col.a = _Transparency;
+				col.a = 1;
 				return col;
 			}
 			ENDHLSL

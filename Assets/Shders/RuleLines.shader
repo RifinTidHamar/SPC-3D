@@ -15,7 +15,7 @@ Shader "Unlit/RuleLines"
 
 		Pass
 		{
-			Ztest Always
+			//Ztest Always
 			Tags {"LightMode" = "UniversalForward"}
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100

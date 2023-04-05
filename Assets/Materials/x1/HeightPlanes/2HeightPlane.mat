@@ -97,10 +97,10 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.005
-    - _Pos0: -2.5
-    - _Pos1: -2.5
-    - _Pos2: -2.5
-    - _Pos3: -2.5
+    - _Pos0: -0
+    - _Pos1: -0
+    - _Pos2: -0
+    - _Pos3: -0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
     - _Smoothness: 0.5
@@ -110,6 +110,7 @@ Material:
     - _Surface: 0
     - _TX: 0.5
     - _TY: 0.7
+    - _Thickness: 0.042
     - _Transparency: 1
     - _WorkflowMode: 1
     - _ZWrite: 1

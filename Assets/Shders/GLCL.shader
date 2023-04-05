@@ -9,6 +9,7 @@ Shader "Unlit/GLCL"
 		_Pos2("Pos2", Vector) = (0,1,1,0)
 		_Pos3("Pos3", Vector) = (1,2,0,0)
 		_Pos4("Pos4", Vector) = (1,2,0,0)
+		_Color("Color", Color) = (1,1,1,1)
 		_Point("Point", Vector) = (1,1,1,1)
 		_Transparency("Transparency", Range(0, 1)) = 0.5
 	}
@@ -18,7 +19,7 @@ Shader "Unlit/GLCL"
 
 		Pass
 		{
-			Ztest Always
+			//Ztest Always
 			Tags {"LightMode" = "UniversalForward"}
 			Blend SrcAlpha OneMinusSrcAlpha
 			LOD 100
@@ -38,9 +39,9 @@ Shader "Unlit/GLCL"
 			float4 _Pos3;
 			float4 _Pos4;
 			float4 _Point;
+			float4 _Color;
 			static float3 fadedCol = 0.2;
 			bool faded;
-			static float3 col = float3(1, 1, 1);
 
 
 
@@ -70,52 +71,52 @@ Shader "Unlit/GLCL"
 			{
 				g2f o[24];
 				o[0].vertex = UnityObjectToClipPos(_Pos0);
-				o[0].color = faded ? fadedCol : col;
+				o[0].color = faded ? fadedCol : _Color;
 				vert.Append(o[0]);
 				o[1].vertex = UnityObjectToClipPos(_Pos1);
-				o[1].color = faded ? fadedCol : col;
+				o[1].color = faded ? fadedCol : _Color;
 				vert.Append(o[1]);
 				vert.RestartStrip();
 
 				o[2].vertex = UnityObjectToClipPos(_Pos1);
-				o[2].color = faded ? fadedCol : col;
+				o[2].color = faded ? fadedCol : _Color;
 				vert.Append(o[2]);
 				o[3].vertex = UnityObjectToClipPos(_Pos2);
-				o[3].color = faded ? fadedCol : col;
+				o[3].color = faded ? fadedCol : _Color;
 				vert.Append(o[3]);
 				vert.RestartStrip();
 
 				o[4].vertex = UnityObjectToClipPos(_Pos2);
-				o[4].color = faded ? fadedCol : col;
+				o[4].color = faded ? fadedCol : _Color;
 				vert.Append(o[4]);
 				o[5].vertex = UnityObjectToClipPos(_Pos3);
-				o[5].color = faded ? fadedCol : col;
+				o[5].color = faded ? fadedCol : _Color;
 				vert.Append(o[5]);
 				vert.RestartStrip();
 
 				o[6].vertex = UnityObjectToClipPos(_Pos3);
-				o[6].color = faded ? fadedCol : col;
+				o[6].color = faded ? fadedCol : _Color;
 				vert.Append(o[6]);
 				o[7].vertex = UnityObjectToClipPos(_Pos4);
-				o[7].color = faded ? fadedCol : col;
+				o[7].color = faded ? fadedCol : _Color;
 				vert.Append(o[7]);
 				vert.RestartStrip();
 
-				float4 segLength = float4((_Pos4.x - _Point.x) / 16, 0, 0, 0);//makes six dotted lines between the point and the c-Plane
-				float4 lowHeight = _Pos4 - segLength;
-				float4 highHeight = lowHeight - segLength;
-				for (int i = 8; i < 24; i += 2)
-				{
-					o[i].vertex = UnityObjectToClipPos(lowHeight);
-					o[i].color = faded ? fadedCol : col - 0.3;
-					vert.Append(o[i]);
-					o[i + 1].vertex = UnityObjectToClipPos(highHeight);
-					o[i + 1].color = faded ? fadedCol : col - 0.3;
-					vert.Append(o[i + 1]);
-					vert.RestartStrip();
-					lowHeight -= segLength * 2;
-					highHeight -= segLength * 2;
-				}
+				//float4 segLength = float4((_Pos4.x - _Point.x) / 16, 0, 0, 0);//makes six dotted lines between the point and the c-Plane
+				//float4 lowHeight = _Pos4 - segLength;
+				//float4 highHeight = lowHeight - segLength;
+				//for (int i = 8; i < 24; i += 2)
+				//{
+				//	o[i].vertex = UnityObjectToClipPos(lowHeight);
+				//	o[i].color = faded ? fadedCol : _Color - 0.3;
+				//	vert.Append(o[i]);
+				//	o[i + 1].vertex = UnityObjectToClipPos(highHeight);
+				//	o[i + 1].color = faded ? fadedCol : _Color - 0.3;
+				//	vert.Append(o[i + 1]);
+				//	vert.RestartStrip();
+				//	lowHeight -= segLength * 2;
+				//	highHeight -= segLength * 2;
+				//}
 			}
 
 			fixed4 frag(g2f i) : SV_Target
