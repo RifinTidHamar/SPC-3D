@@ -99,21 +99,21 @@ Shader "Custom/coordinateLines"
 					vert.RestartStrip();
 
 
-					float4 segLength = float4(0, 0, (_Pos3.z - _C.z) / 12, 0);//makes six dotted lines between the point and the c-Plane
-					float4 lowHeight = _Pos3 - segLength;
-					float4 highHeight = lowHeight - segLength;
-					for (int i = 6; i < 18; i += 2)
-					{
-						o[i].vertex = UnityObjectToClipPos(lowHeight);
-						o[i].color = faded ? fadedCol : float3(0.7490196, 0, 0.5490196);
-						vert.Append(o[i]);
-						o[i + 1].vertex = UnityObjectToClipPos(highHeight);
-						o[i + 1].color = faded ? fadedCol : float3(0.7490196, 0, 0.5490196);
-						vert.Append(o[i + 1]);
-						vert.RestartStrip();
-						lowHeight -= segLength * 2;
-						highHeight -= segLength * 2;
-					}
+					//float4 segLength = float4(0, 0, (_Pos3.z - _C.z) / 12, 0);//makes six dotted lines between the point and the c-Plane
+					//float4 lowHeight = _Pos3 - segLength;
+					//float4 highHeight = lowHeight - segLength;
+					//for (int i = 6; i < 18; i += 2)
+					//{
+					//	o[i].vertex = UnityObjectToClipPos(lowHeight);
+					//	o[i].color = faded ? fadedCol : float3(0.7490196, 0, 0.5490196);
+					//	vert.Append(o[i]);
+					//	o[i + 1].vertex = UnityObjectToClipPos(highHeight);
+					//	o[i + 1].color = faded ? fadedCol : float3(0.7490196, 0, 0.5490196);
+					//	vert.Append(o[i + 1]);
+					//	vert.RestartStrip();
+					//	lowHeight -= segLength * 2;
+					//	highHeight -= segLength * 2;
+					//}
 				}
 				else if (_C.z < _Pos3.z)
 				{

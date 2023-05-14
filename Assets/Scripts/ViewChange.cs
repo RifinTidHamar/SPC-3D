@@ -81,10 +81,15 @@ public class ViewChange : MonoBehaviour
             i.interactable = false;
             interactable = false;
         }
+        float timeElapsed = 0;
+        float lerpDuration = 0.2f;
         while (Camera.main.transform.position != newPos && Camera.main.transform.rotation != newRot)
         {
-            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, newPos, 0.02f);
-            Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, newRot, 0.02f);
+
+
+            Camera.main.transform.position = Vector3.Lerp(Camera.main.transform.position, newPos, timeElapsed/lerpDuration);
+            Camera.main.transform.rotation = Quaternion.Lerp(Camera.main.transform.rotation, newRot, timeElapsed / lerpDuration);
+            timeElapsed += Time.deltaTime;
             yield return new WaitForEndOfFrame();
         }
         foreach (Button i in views)

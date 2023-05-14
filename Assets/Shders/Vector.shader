@@ -10,14 +10,15 @@ Shader "Custom/vector"
 		_Color("Color", Color) = (0, 1, 0.73, 1)
 	}
 
+
 	SubShader
 	{
-
 		Pass
 		{
 			//Ztest Always
 			Tags {"Queue" = "Geometry"}
-			Blend SrcAlpha OneMinusSrcAlpha
+			//Blend SrcAlpha OneMinusSrcAlpha
+			//Cull off
 
 			HLSLPROGRAM
 			#pragma vertex vert
@@ -50,16 +51,24 @@ Shader "Custom/vector"
 				return o;
 			}
 
+			StructuredBuffer <float4> vecPos;
 
-			[maxvertexcount(2)]
+			[maxvertexcount(45)]
 			void geom(point v2g IN[1], inout LineStream <g2f> vert)
 			{
-				g2f o[2];
-				o[0].vertex = UnityObjectToClipPos(_Pos1);
-				vert.Append(o[0]);
-				o[1].vertex = UnityObjectToClipPos(_Pos2);
-				vert.Append(o[1]);
-				vert.RestartStrip();
+				g2f o[45];
+				int x = 0;
+				for (int i = 0; i < /*3*/7; i++)
+				{
+					o[x].vertex = UnityObjectToClipPos(vecPos[i]);
+					vert.Append(o[x]);
+					x++;
+					o[x].vertex = UnityObjectToClipPos(vecPos[i+1]);
+					vert.Append(o[x]);
+					vert.RestartStrip();
+					x++;
+				}
+				
 			}
 
 			fixed4 frag(g2f i) : SV_Target

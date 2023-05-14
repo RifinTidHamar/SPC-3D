@@ -110,7 +110,7 @@ Material:
     - _Surface: 0
     - _TX: 0.5
     - _TY: 0.7
-    - _Thickness: 0.042
+    - _Thickness: 0.01
     - _Transparency: 1
     - _WorkflowMode: 1
     - _ZWrite: 1

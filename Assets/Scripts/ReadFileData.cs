@@ -34,7 +34,7 @@ public class ReadFileData : MonoBehaviour
     void Awake()
     {
         //eventually will be used retrieved
-        fileName = "iris.data";
+        fileName = "brstCncrModShort.csv";
         myFilePath = Application.dataPath + "/FileData/" + fileName;
         ReadFromTheFile();
     }
@@ -74,7 +74,7 @@ public class ReadFileData : MonoBehaviour
                 data[i][j] = new float[attribCount];
                 for (int k = 0; k < data[i][j].Length; k++)
                 {
-                    data[i][j][k] = float.Parse(numberString[count][k]);
+                    float.TryParse(numberString[count][k], out data[i][j][k]);
                     if (data[i][j][k] > maxAttribNums[k])
                     {
                         maxAttribNums[k] = data[i][j][k];
