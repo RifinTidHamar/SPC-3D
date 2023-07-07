@@ -1,5 +1,5 @@
 Shader "Custom/vector"
-//makes a line based off three pints
+//makes a line based off three points
 {
 	Properties
 	{
@@ -24,6 +24,7 @@ Shader "Custom/vector"
 			#pragma vertex vert
 			#pragma geometry geom
 			#pragma fragment frag
+			#pragma enable_d3d11_debug_symbols
 			// include file that contains UnityObjectToWorldNormal helper function
 			#include "UnityCG.cginc"
 			#include "UnityLightingCommon.cginc" // for _LightColor0

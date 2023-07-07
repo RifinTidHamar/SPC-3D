@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using System.Diagnostics;
 
 public class ReadFileData : MonoBehaviour
 {
@@ -35,7 +36,11 @@ public class ReadFileData : MonoBehaviour
     {
         //eventually will be used retrieved
         fileName = "brstCncrModShort.csv";
-        myFilePath = Application.dataPath + "/FileData/" + fileName;
+        //myFilePath = Application.dataPath + "/FileData/" + fileName;
+        myFilePath = "C:\\Users\\infer\\Desktop\\Github2\\Boris\\SPC-3D\\Assets\\FileData\\" + fileName;
+        UnityEngine.Debug.Log(myFilePath);
+        int nProcessID = Process.GetCurrentProcess().Id;
+        UnityEngine.Debug.Log("proc: " + nProcessID);
         ReadFromTheFile();
     }
 

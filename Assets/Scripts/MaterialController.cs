@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
+using System.Diagnostics;
 
 //Handles all Visuals derived from the two vectors, X1 and A. In all honesty this could be split up for organization sake. Ill leave that up to future programmers
 public class MaterialController : MonoBehaviour
@@ -62,8 +63,12 @@ public class MaterialController : MonoBehaviour
     float xShift = 2.5f;
     float yShift = 2.836596f;
     float zShift = 2.5f;// 0.008552f;
+
     void Start()
     {
+        int nProcessID = Process.GetCurrentProcess().Id;
+        UnityEngine.Debug.Log("proc: " + nProcessID);
+
         Mesh mesh = new Mesh();
         mesh.vertices = new Vector3[] { Vector3.zero };
         mesh.triangles = new int[] { 0, 0, 0 };
@@ -79,14 +84,14 @@ public class MaterialController : MonoBehaviour
         pointHeight = new float[PAIR_COORDS, 4];
         aVals = new float[ReadFileData.attribCount];
         normAVals = new float[ReadFileData.attribCount];
-       
+
         for (int i = 0; i < ReadFileData.attribCount; i++)
         {
             aVals[i] = 1;
             normAVals[i] = 1;
         }
 
-        
+
         //Debug.Log(xVals.GetLength(0));
         subCoordinateCubes = new GameObject[PAIR_COORDS];
         coordPointArr = new GameObject[setCount * PAIR_COORDS];// multiplied by two because it there are two subcoordinates for every 4 values (which makes up one xVal)
@@ -96,7 +101,7 @@ public class MaterialController : MonoBehaviour
         GameObject[] tempPoints = new GameObject[setCount * PAIR_COORDS];
 
         int swapDir = 1;
-        Vector3 curPos = new Vector3(0,0,0);
+        Vector3 curPos = new Vector3(0, 0, 0);
         HeightPlane = prefabSubCoord.transform.GetChild(1).gameObject.GetComponent<Renderer>().sharedMaterial;
         for (int i = 0; i < PAIR_COORDS; i++)
         {
@@ -511,8 +516,8 @@ public class MaterialController : MonoBehaviour
     //These set of functions read in the A vector from the UI, one element at a time
     public void readA(string aInp, int placement)
     {
-        Debug.Log(placement);
-        Debug.Log(aInp);
+        UnityEngine.Debug.Log(placement);
+        UnityEngine.Debug.Log(aInp);
         if (float.TryParse(aInp, out _))
             aVals[placement] = float.Parse(aInp);
         updateCubes();
@@ -599,8 +604,8 @@ public class MaterialController : MonoBehaviour
     {
         for(int i = 0; i < ReadFileData.setCount; i++)
         {
-            glclBuffer[i].Release();
-            vectorBuffer[i].Release();
+            //glclBuffer[i].Release();
+            //vectorBuffer[i].Release();
         }
     }
 }
